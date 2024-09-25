@@ -37,14 +37,15 @@ void mainloop()
 {
     ScrUtils::printf("[DEBUG] Running main loop.");
     while (WHBProcIsRunning()) {
+                    ScrUtils::printf("\n");
+                    sleep(4);
                     // Your application logic goes here
-                    ScrUtils::printf("~~ SplatfestDL++ v%da ~~\n", g_AppVersion);
-                    sleep(5);
+                    ScrUtils::printf("~~ SplatfestDL++ v%d ~~\n", g_AppVersion);
                     ScrUtils::printf("[SFDL-A] Loaded SFDL Aroma patches by andrea, showing credits now\n");
-                    ScrUtils::printf("special thanks to scraps for testing love you <3\n");
-                    ScrUtils::printf("purplepote for wii u rain\n");
-                    ScrUtils::printf("sheldon for providing this code\n");
-                    ScrUtils::printf("shadowdoggo for retiring\n");
+                    ScrUtils::printf("Special thanks to: Scraps for testing\n");
+                    ScrUtils::printf("PurplePote for uploading test files\n");
+                    ScrUtils::printf("Sheldon for providing this code\n");
+                    ScrUtils::printf("ShadowDoggo for retiring\n");
 
                     // Check if under maintenance
                     // if (Utilities::CheckMaintenance())

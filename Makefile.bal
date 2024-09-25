@@ -100,12 +100,27 @@ all: $(BUILD)
 
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
+	@$(MAKE) -j1 --no-print-directory -C $(CURDIR)/include/EXPLOIT/ios_mcp -f $(CURDIR)/include/EXPLOIT/ios_mcp/Makefile
+	@$(MAKE) -j1 --no-print-directory -C $(CURDIR)/include/EXPLOIT/ios_usb -f $(CURDIR)/include/EXPLOIT/ios_usb/Makefile    
+	@$(MAKE) -j1 --no-print-directory -C $(CURDIR)/include/EXPLOIT/ios_kernel -f $(CURDIR)/include/EXPLOIT/ios_kernel/Makefile
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
+
+$(CURDIR)/include/EXPLOIT/ios_kernel/ios_kernel.bin.h: $(CURDIR)/include/EXPLOIT/ios_usb/ios_usb.bin.h  $(CURDIR)/include/EXPLOIT/ios_mcp/ios_mcp.bin.h
+	@$(MAKE) -j1 --no-print-directory -C $(CURDIR)/include/EXPLOIT/ios_kernel -f $(CURDIR)/include/EXPLOIT/ios_kernel/Makefile
+
+$(CURDIR)/include/EXPLOIT/ios_usb/ios_usb.bin.h: 
+	@$(MAKE) -j1 --no-print-directory -C $(CURDIR)/include/EXPLOIT/ios_usb -f $(CURDIR)/include/EXPLOIT/ios_usb/Makefile
+    
+$(CURDIR)/include/EXPLOIT/ios_mcp/ios_mcp.bin.h: 
+	@$(MAKE) -j1 --no-print-directory -C $(CURDIR)/include/EXPLOIT/ios_mcp -f $(CURDIR)/include/EXPLOIT/ios_mcp/Makefile
 
 #-------------------------------------------------------------------------------
 clean:
 	@echo clean ...
 	@rm -fr $(BUILD) $(TARGET).rpx $(TARGET).elf
+	@$(MAKE) --no-print-directory -C $(CURDIR)/include/EXPLOIT/ios_kernel -f  $(CURDIR)/include/EXPLOIT/ios_kernel/Makefile clean
+	@$(MAKE) --no-print-directory -C $(CURDIR)/include/EXPLOIT/ios_usb -f  $(CURDIR)/include/EXPLOIT/ios_usb/Makefile clean
+	@$(MAKE) --no-print-directory -C $(CURDIR)/include/EXPLOIT/ios_mcp -f  $(CURDIR)/include/EXPLOIT/ios_mcp/Makefile clean	
 
 #-------------------------------------------------------------------------------
 else
