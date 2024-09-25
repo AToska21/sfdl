@@ -114,44 +114,35 @@ namespace FestUtils
 
 
 
-    void inline GetFestFilePathFromStorage(char* buffer, uint64_t titleID, uint32_t fileID)
+    void inline GetFestFilePathFromStorage(char* buffer, const char* storagePath, uint64_t titleID, uint32_t fileID)
     {
-        snprintf(buffer, 0x100, "/vol/storage_mlc01/usr/boss/00050000/%08x/user/common/data/optdat2/%08x", 
-                GetLowBytes(titleID), fileID);
-        WHBLogPrintf("\nGenerated path: \n %s", buffer);
+        snprintf(buffer, 0x100, "%s:/usr/boss/%08X/%08X/user/common/data/optdat2/%08x", 
+                storagePath, GetHighBytes(titleID), GetLowBytes(titleID), fileID);
     }
     void GetMLCFestFilePath(char* buffer, uint64_t titleID, uint32_t fileID) {
-        GetFestFilePathFromStorage(buffer, titleID, fileID);
+        GetFestFilePathFromStorage(buffer, "storage_mlc01", titleID, fileID);
     }
     void GetUSBFestFilePath(char* buffer, uint64_t titleID, uint32_t fileID) {
-        GetFestFilePathFromStorage(buffer, titleID, fileID);
+        GetFestFilePathFromStorage(buffer, "storage_mlc01", titleID, fileID);
     }
 
-    bool CheckForFestFilesInStorage(uint64_t titleID, FestFileIdx idxStruct)
+    bool CheckForFestFilesInStorage(char* storage, uint64_t titleID, FestFileIdx idxStruct)
     {
         bool allFound = true;
         char path[0x100];
+        GetFestFilePathFromStorage(path, storage, titleID, idxStruct.festivalByamlID);
+        // ScrUtils::printf("Checking for %s\n", path);
 
-        GetFestFilePathFromStorage(path, titleID, idxStruct.festivalByamlID);
-        WHBLogPrintf("Checking if Festival BYAML file exists: %s", path);
-        if (!FsUtils::CheckFileExists(path)) {
-            WHBLogPrintf("Festival BYAML file not found.");
+        if (!FsUtils::CheckFileExists(path))
             allFound = false;
-        }
 
-        GetFestFilePathFromStorage(path, titleID, idxStruct.panelTextureID);
-        WHBLogPrintf("Checking if Panel Texture file exists: %s", path);
-        if (!FsUtils::CheckFileExists(path)) {
-            WHBLogPrintf("Panel Texture file not found.");
+        GetFestFilePathFromStorage(path, storage, titleID, idxStruct.panelTextureID);
+        if (!FsUtils::CheckFileExists(path))
             allFound = false;
-        }
 
-        GetFestFilePathFromStorage(path, titleID, idxStruct.hapTextureID);
-        WHBLogPrintf("Checking if Hap Texture file exists: %s", path);
-        if (!FsUtils::CheckFileExists(path)) {
-            WHBLogPrintf("Hap Texture file not found.");
+        GetFestFilePathFromStorage(path, storage, titleID, idxStruct.hapTextureID);
+        if (!FsUtils::CheckFileExists(path))
             allFound = false;
-        }
 
         return allFound;
     }
@@ -178,53 +169,62 @@ namespace FestUtils
         StorageType storageType = StorageType_MLC;
         bool isFestOnUSB = false;
 
-        if (FsUtils::IsUSBMounted()) // USB storage mounted
-        {
-            WHBLogPrintf("USB storage is mounted. Checking for Fest files on USB...");
-            if (CheckForFestFilesInStorage(titleID, idxStruct))
-            {
-                WHBLogPrintf("Fest files found on USB storage.");
-                isFestOnUSB = true;
-                storageType = StorageType_USB;  // Splatfest is on USB
-            }
-        }
-        if (!isFestOnUSB) // Fest is not on USB, check MLC
-        {
+        // if (FsUtils::IsUSBMounted()) // USB storage mounted
+        // {
+        //     WHBLogPrintf("USB storage is mounted. Checking for Fest files on USB...");
+        //     if (CheckForFestFilesInStorage("storage_usb", titleID, idxStruct))
+        //     {
+        //         WHBLogPrintf("Fest files found on USB storage.");
+        //         isFestOnUSB = true;
+        //         storageType = StorageType_USB;  // Splatfest is on USB
+        //     }
+        // }
+        // if (!isFestOnUSB) // Fest is not on USB, check MLC
             WHBLogPrintf("Fest not found on USB, checking MLC storage...");
-            if (CheckForFestFilesInStorage(titleID, idxStruct))
+            if (CheckForFestFilesInStorage("storage_mlc01", titleID, idxStruct))
             {
                 WHBLogPrintf("Fest files found on MLC storage.");
                 storageType = StorageType_MLC; // Splatfest is on MLC
             }
             else // Files not found anywhere
             {
-                WHBLogPrintf("Fest files not found on USB or MLC. Forcing installation to MLC.");
+                WHBLogPrintf("\nFest files not found on USB or MLC. Forcing installation to MLC.");
                 storageType = StorageType_MLC;
             }
-        }
 
         WHBLogPrintf("\nCopying Fest files from SD temp folder to storage...");
+
+        const char* storageDevice = "";
+        switch (storageType)
+        {
+            case StorageType_USB:
+                storageDevice = "storage_usb";
+                break;
+            case StorageType_MLC:
+                storageDevice = "storage_mlc01";
+                break;
+            case StorageType_NOT_FOUND:
+                storageDevice = "storage_mlc01";
+                break;
+        }
 
         char path[0x100];
         std::string sdPathBase = g_TempPath;
         std::string sdPath = sdPathBase;
 
-        GetFestFilePathFromStorage(path, titleID, idxStruct.festivalByamlID);
+        GetFestFilePathFromStorage(path, storageDevice, titleID, idxStruct.festivalByamlID);
         sdPath = sdPathBase + "Festival.byaml";
-        WHBLogPrintf("Copying Festival.byaml from SD: %s to storage: %s", sdPath.c_str(), path);
         FsUtils::CopyFile(sdPath.c_str(), path);
 
-        GetFestFilePathFromStorage(path, titleID, idxStruct.panelTextureID);
+        GetFestFilePathFromStorage(path, storageDevice, titleID, idxStruct.panelTextureID);
         sdPath = sdPathBase + "PanelTexture.bfres";
-        WHBLogPrintf("Copying PanelTexture.bfres from SD: %s to storage: %s", sdPath.c_str(), path);
         FsUtils::CopyFile(sdPath.c_str(), path);
 
-        GetFestFilePathFromStorage(path, titleID, idxStruct.hapTextureID);
+        GetFestFilePathFromStorage(path, storageDevice, titleID, idxStruct.hapTextureID);
         sdPath = sdPathBase + "HapTexture.bfres";
-        WHBLogPrintf("Copying HapTexture.bfres from SD: %s to storage: %s", sdPath.c_str(), path);
         FsUtils::CopyFile(sdPath.c_str(), path);
 
-        WHBLogPrintf("Fest installation completed.");
+        // ScrUtils::printf("Done!\n");
         return true;
     }
 

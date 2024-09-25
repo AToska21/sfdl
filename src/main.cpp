@@ -1,6 +1,8 @@
 #include "main.hpp"
 #include <mocha/mocha.h>
 #include <sysapp/launch.h>
+#include <coreinit/thread.h>
+#include <thread>
 
 // Global variables
 constexpr int g_AppVersion = 1;
@@ -25,11 +27,10 @@ void inline deinit()
     #endif
 }
 
-int main()
+int
+main_thread()
 {
-    // Initialize (Wii U)
-    init();
-    while (WHBProcIsRunning) {
+        while (WHBProcIsRunning()) {
         if (Mocha_InitLibrary() != MOCHA_RESULT_SUCCESS) {
             ScrUtils::printf("[SFDL--] Failed to init Mocha! Please contact the developers on Discord!\n");
         }
@@ -163,11 +164,23 @@ int main()
 
         ScrUtils::printf("\nPress A to exit...");
         ScrUtils::waitForKeyPress();
-
+        return 0;
     }
+    return 0;
+}
+
+int main()
+{
+    // Initialize (Wii U)
+    WHBProcInit();
+    WHBLogConsoleInit();
+
+    std::thread t(main_thread);
+    t.join();
 
     // Deinitialize (Wii U)
-    deinit();
-    SYSLaunchMenu();
-    // return 0;
+    WHBLogConsoleFree();
+    WHBProcShutdown();
+    return 0;
 }
+
