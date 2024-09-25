@@ -7,8 +7,9 @@
 
 #define URL_BASE "https://raw.githubusercontent.com/" GITHUB_USER "/" GITHUB_REPO "/master/"
 #define MAINTENANCE_BASE "https://cdn.abmanagement.al/SFDL"
+#define SFDL_FILE "https://cdn.abmanagement.al/"
 
-#define URL_MAINTENANCE     URL_BASE ".txt"
+#define URL_MAINTENANCE     MAINTENANCE_BASE ".txt"
 #define URL_VERSION         URL_BASE "v"
 
 // Splatfest Downloader
@@ -22,9 +23,9 @@
 #define URL_SFML_APPMETA         URL_BASE "app/SFML/meta.xml"
 
 
-#define URL_FESTIVAL_BYAML      URL_BASE "Festival.byaml"
-#define URL_PANELTEXTURE_BFRES  URL_BASE "PanelTexture.bfres"
-#define URL_HAPTEXTURE_BFRES    URL_BASE "HapTexture.bfres"
+#define URL_FESTIVAL_BYAML      SFDL_FILE "Festival.byaml"
+#define URL_PANELTEXTURE_BFRES  SFDL_FILE "PanelTexture.bfres"
+#define URL_HAPTEXTURE_BFRES    SFDL_FILE "HapTexture.bfres"
 #define URL_GECKO_CODES         URL_BASE "SFDL.gctu"
 
 #define URL_FEST_INFO_XML       URL_BASE "fest_info.xml"
