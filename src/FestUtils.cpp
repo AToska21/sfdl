@@ -192,8 +192,6 @@ namespace FestUtils
                 storageType = StorageType_MLC;
             }
 
-        WHBLogPrintf("\nCopying Fest files from SD temp folder to storage...");
-
         const char* storageDevice = "";
         switch (storageType)
         {

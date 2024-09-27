@@ -37,9 +37,10 @@ void mainloop()
 {
     ScrUtils::printf("[DEBUG] Running main loop.");
     while (WHBProcIsRunning()) {
+                    ScrUtils::printf("\n");
+                    sleep(4);
                     // Your application logic goes here
-                    ScrUtils::printf("~~ SplatfestDL++ v%da ~~\n", g_AppVersion);
-                    sleep(5);
+                    ScrUtils::printf("~~ SplatfestDL++ v%d ~~\n", g_AppVersion);
                     ScrUtils::printf("[SFDL-A] Loaded SFDL Aroma patches by andrea, showing credits now\n");
                     ScrUtils::printf("special thanks to scraps for testing love you <3\n");
                     ScrUtils::printf("purplepote for wii u rain\n");
