@@ -45,6 +45,11 @@ void mainloop()
                     ScrUtils::printf("purplepote for wii u rain\n");
                     ScrUtils::printf("sheldon for providing this code\n");
                     ScrUtils::printf("shadowdoggo for retiring\n");
+                    ScrUtils::printf("DISCLAIMER: It will appear as if\n");
+                    ScrUtils::printf("the script runs twice. This is due to\n");
+                    ScrUtils::printf("Aroma limitations. Sorry.\n");
+                    ScrUtils::printf("Press A to start.\n");
+                    ScrUtils::waitForKeyPress();
 
                     // Check if under maintenance
                     // if (Utilities::CheckMaintenance())
@@ -121,7 +126,6 @@ void mainloop()
                     ScrUtils::printf("Installation done! Remove the sfdltemp path on your SD card when the fest is over.");
                     ScrUtils::printf("\nPress A to exit...");
                     ScrUtils::waitForKeyPress();
-                    ScrUtils::printf("Goodbye!");
                     SYSLaunchMenu();
     }
 }
