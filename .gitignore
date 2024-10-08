@@ -1,13 +1,12 @@
 # Build Folders
-build*
-
-# App
-SFDL_PC
+build
+build_PC
 
 .vscode
 .DS_Store
-!.github
 
+# Apps
 *.elf
 *.rpx
 *.wuhb
+SFDL_PC
