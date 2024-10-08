@@ -50,23 +50,19 @@ void mainloop()
                         ScrUtils::printf("You are using the latest version\n");
                     }
 
-                    // // Prompt for update download
-                    // if (g_AppVersion < latestVersion)
-                    // {
-                    //     if (ScrUtils::AskForYesNo("Do you want to download the latest version?"))
-                    //     {
-                    //         ScrUtils::printf("Downloading latest version...\n");
-                    //         ScrUtils::printf("[!] Feature not implemented yet\n");
-                    //     }
-                    //     else
-                    //     {
-                    //         ScrUtils::printf("Continuing without downloading the latest version\n");
-                    //     }
-                    // }
-
-                    #ifdef WIIU
-                    ScrUtils::printf("\n");
-                    #endif
+                    // Prompt for update download
+                    if (g_AppVersion < latestVersion)
+                    {
+                        if (ScrUtils::AskForYesNo("Do you want to download the latest version?"))
+                        {
+                            ScrUtils::printf("Downloading latest version...\n");
+                            Utilities::DownloadLatestVersion();
+                        }
+                        else
+                        {
+                            ScrUtils::printf("Continuing without downloading the latest version.\n");
+                        }
+                    }
 
                     ScrUtils::printf("\n");
 
