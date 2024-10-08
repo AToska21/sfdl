@@ -6,7 +6,6 @@ SFDL_PC
 
 .vscode
 .DS_Store
-.git
 !.github
 
 *.elf
