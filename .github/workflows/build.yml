@@ -6,7 +6,7 @@ jobs:
     build-sfdl:
         runs-on: ubuntu-22.04
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v4
             - name: build toolchain container
               run: docker build . -t builder
             - uses: ammaraskar/gcc-problem-matcher@master
@@ -14,6 +14,8 @@ jobs:
               run: |
                 docker build . -t builder
                 docker run --rm -v ${PWD}:/project builder make
+            - name: build wuhb
+              run: wuhbtool --name=SplatfestDLPP --short-name=aromaSFDL --author=andrea --icon=sfs.png --tv-image=tv.png --drc-image=sillydrc.png SplatfestDL_Plus.rpx SFDL.wuhb
             - uses: actions/upload-artifact@master
               with:
                   name: sfdl
