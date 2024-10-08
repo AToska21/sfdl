@@ -35,7 +35,7 @@ void inline deinit()
 
 void mainloop()
 {
-    ScrUtils::printf("[DEBUG] Running main loop.");
+    // ScrUtils::printf("[DEBUG] Running main loop.");
     while (WHBProcIsRunning()) {
                     ScrUtils::printf("\n");
                     sleep(4);
@@ -125,8 +125,7 @@ void mainloop()
                     ScrUtils::printf("Checking Splatfest info...\n");
                     // FsUtils::RemoveDirRecursive(FestUtils::g_TempPath);
                     ScrUtils::printf("Installation done! Remove the sfdltemp path on your SD card when the fest is over.");
-                    ScrUtils::printf("\nPress A to exit...");
-                    ScrUtils::waitForKeyPress();
+                    sleep(3);
                     SYSLaunchMenu();
     }
 }
@@ -138,7 +137,7 @@ int main() {
     WHBLogConsoleInit();
     if (Mocha_InitLibrary() != MOCHA_RESULT_SUCCESS)
     {
-        OSFatal("[SFDL--] Failed to init Mocha! Please contact the developers on Discord!");
+        OSFatal("[SFDL] Failed to init Mocha! Please contact the developers on Discord!");
     }
     mainloop();
     Mocha_DeInitLibrary();
