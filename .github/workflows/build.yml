@@ -9,7 +9,6 @@ jobs:
             - uses: actions/checkout@v4
             - name: build toolchain container
               run: docker build . -t builder
-            - uses: ammaraskar/gcc-problem-matcher@master
             - name: build sfdl
               run: |
                 docker build . -t builder
@@ -18,9 +17,13 @@ jobs:
               run: docker run --rm -v ${PWD}:/project builder wuhbtool --name=SplatfestDLPP --short-name=aromaSFDL --author=andrea --icon=sfs.png --tv-image=tv.png --drc-image=sillydrc.png SplatfestDL_Plus.rpx SFDL.wuhb
             - uses: actions/upload-artifact@master
               with:
-                  name: sfdl
+                  name: sfdl-elf
+                  path: "*.elf"
+            - uses: actions/upload-artifact@master
+              with:
+                  name: sfdl-rpx
                   path: "*.rpx"
             - uses: actions/upload-artifact@master
               with:
-                  name: sfdl-pp
+                  name: sfdl-wuhb
                   path: "*.wuhb"

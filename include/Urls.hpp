@@ -13,7 +13,7 @@
 #define URL_VERSION         URL_BASE "v"
 
 // Splatfest Downloader
-#define URL_SFDL_APPRPX          URL_BASE "app/SFDL/sfdl"
+#define URL_SFDL_APPRPX          SFDL_FILE "SFDL.wuhb"
 #define URL_SFDL_APPICON         URL_BASE "app/SFDL/icon.png"
 #define URL_SFDL_APPMETA         URL_BASE "app/SFDL/meta.xml"
 
@@ -23,9 +23,9 @@
 #define URL_SFML_APPMETA         URL_BASE "app/SFML/meta.xml"
 
 
-#define URL_FESTIVAL_BYAML      SFDL_FILE "Festival.byaml"
-#define URL_PANELTEXTURE_BFRES  SFDL_FILE "PanelTexture.bfres"
-#define URL_HAPTEXTURE_BFRES    SFDL_FILE "HapTexture.bfres"
+#define URL_FESTIVAL_BYAML      URL_BASE "Festival.byaml"
+#define URL_PANELTEXTURE_BFRES  URL_BASE "PanelTexture.bfres"
+#define URL_HAPTEXTURE_BFRES    URL_BASE "HapTexture.bfres"
 #define URL_GECKO_CODES         URL_BASE "SFDL.gctu"
 
 #define URL_FEST_INFO_XML       URL_BASE "fest_info.xml"

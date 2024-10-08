@@ -125,51 +125,6 @@ namespace FsUtils
         return count;
     }
 
-
-    /* WiiU functions */
-    namespace MCP
-    {
-        static int mcp_hook_fd = -1;
-        
-        // bool MCPHookOpen()
-        // {
-        //     #ifdef WIIU
-        //     // take over mcp thread
-        //     mcp_hook_fd = MCP_Open();
-        //     if (mcp_hook_fd < 0)
-        //         return false;
-        //     // IOS_IoctlAsync(mcp_hook_fd, 0x62, (void*)0, 0, (void*)0, 0, (IOSAsyncCallbackFn)someFunc, (void*)0);
-        //     if (IOSUHAX_Open("/dev/mcp") < 0)
-        //     {
-        //         MCP_Close(mcp_hook_fd);
-        //         mcp_hook_fd = false;
-        //         return false;
-        //     }
-        //     #endif
-        //     return true;
-        // }
-
-        // void MCPHookClose()
-        // {
-        //     #ifdef WIIU
-        //     if (mcp_hook_fd < 0)
-        //         return;
-        //     // close down wupserver, return control to mcp
-        //     IOSUHAX_Close();
-        //     // wait for mcp to return
-        //     sleep(1);
-        //     MCP_Close(mcp_hook_fd);
-        //     mcp_hook_fd = -1;
-        //     #endif
-        // }
-    }
-
-
-    // IOSU
-
-    bool openedIOSU = false;
-
-
     #ifdef WIIU
     bool IsMLCMounted() {
         return VirtualPathUtils::mMLCMounted;

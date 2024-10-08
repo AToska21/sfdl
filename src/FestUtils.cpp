@@ -1,5 +1,7 @@
 #include "FestUtils.hpp"
-
+#include <sysapp/title.h>
+#include <whb/log_console.h>
+#include <whb/log.h>
 
 uint32_t GetHighBytes(uint64_t titleID) {
     return (uint32_t)(titleID >> 32);

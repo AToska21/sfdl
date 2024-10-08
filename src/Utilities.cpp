@@ -1,4 +1,5 @@
 #include "Utilities.hpp"
+#include <coreinit/debug.h>
 
 namespace Utilities
 {
@@ -35,17 +36,15 @@ namespace Utilities
 
     void DownloadLatestVersion()
     {
-        if (!FsUtils::EnsureDirExists("wiiu/apps/SplatfestDL+/"))
+        if (!FsUtils::EnsureDirExists("wiiu/apps"))
         {
-            ScrUtils::printf("Failed to create directories\n");
+            OSFatal("wiiu/apps does not exist, is your SD card feeling okay?");
             return;
         }
 
         Tools::Downloader d;
 
-        d.DownloadToFile(URL_SFDL_APPRPX,  "wiiu/apps/SplatfestDL+/SFDL.rpx");
-        d.DownloadToFile(URL_SFDL_APPICON, "wiiu/apps/SplatfestDL+/icon.png");
-        d.DownloadToFile(URL_SFDL_APPMETA, "wiiu/apps/SplatfestDL+/meta.xml");
+        d.DownloadToFile(URL_SFDL_APPRPX,  "wiiu/apps/SFDL.wuhb");
     }
 
     bool DownloadModLoader()

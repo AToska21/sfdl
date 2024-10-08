@@ -6,7 +6,6 @@
 
 #ifdef WIIU
 #include <malloc.h>
-// #include <iosuhax_devoptab.h>
 #else
 #include <stdlib.h>
 #endif

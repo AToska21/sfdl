@@ -8,30 +8,9 @@
 #include <coreinit/foreground.h>
 #include <coreinit/systeminfo.h>
 #include <whb/proc.h>
+#include <whb/log_console.h>
 // Global variables
-constexpr int g_AppVersion = 1;
-
-void saveProcessCallback() {
-    OSSavesDone_ReadyToRelease();
-}
-
-void inline init()
-{
-    #ifdef WIIU
-    OSEnableHomeButtonMenu(1);
-    ProcUIInit(&saveProcessCallback);
-    WHBLogConsoleInit();
-    #endif
-}
-
-void inline deinit()
-{
-    #ifdef WIIU
-    WHBLogConsoleFree();
-    SYSLaunchMenu();
-    ProcUIShutdown();
-    #endif
-}
+constexpr int g_AppVersion = 2;
 
 void mainloop()
 {
@@ -40,17 +19,14 @@ void mainloop()
                     ScrUtils::printf("\n");
                     sleep(4);
                     // Your application logic goes here
-                    ScrUtils::printf("~~ SplatfestDL++ v%d ~~\n", g_AppVersion);
-                    ScrUtils::printf("[SFDL-A] Loaded SFDL Aroma patches by andrea, showing credits now\n");
-                    ScrUtils::printf("special thanks to scraps for testing love you <3\n");
-                    ScrUtils::printf("purplepote for wii u rain\n");
+                    ScrUtils::printf("~~ SplatfestDL v%d ~~\n", g_AppVersion);
+                    ScrUtils::printf("special thanks to scraps for testing, love you <3\n");
                     ScrUtils::printf("sheldon for providing this code\n");
-                    ScrUtils::printf("shadowdoggo for retiring\n");
                     ScrUtils::printf("DISCLAIMER: It will appear as if\n");
                     ScrUtils::printf("the script runs twice. This is due to\n");
                     ScrUtils::printf("Aroma limitations. Sorry.\n");
-                    ScrUtils::printf("Press A to start.\n");
-                    ScrUtils::waitForKeyPress();
+                    ScrUtils::printf("Starting in 3 seconds.\n");
+                    sleep(3);
 
                     // Check if under maintenance
                     // if (Utilities::CheckMaintenance())
@@ -60,19 +36,19 @@ void mainloop()
                     //      OSFatal("Servers under maintenance. System halted. Manually reboot your Wii U.");
                     // }
 
-                    // // Check for updates
-                    // int latestVersion = Utilities::GetLatestVersionNum();
-                    // if (g_AppVersion != latestVersion)
-                    // {
-                    //     if (g_AppVersion < latestVersion)
-                    //         ScrUtils::printf("New version available!\n");
-                    //     else
-                    //         ScrUtils::printf("You may be using a pre-release version\n");
-                    // }
-                    // else
-                    // {
-                    //     ScrUtils::printf("You are using the latest version\n");
-                    // }
+                    // Check for updates
+                    int latestVersion = Utilities::GetLatestVersionNum();
+                    if (g_AppVersion != latestVersion)
+                    {
+                        if (g_AppVersion < latestVersion)
+                            ScrUtils::printf("New version available!\n");
+                        else
+                            ScrUtils::printf("You may be using a pre-release version.\n");
+                    }
+                    else
+                    {
+                        ScrUtils::printf("You are using the latest version\n");
+                    }
 
                     // // Prompt for update download
                     // if (g_AppVersion < latestVersion)
@@ -122,10 +98,9 @@ void mainloop()
                     VirtualPathUtils::UnmountMLC();
                     #endif
 
-                    ScrUtils::printf("Checking Splatfest info...\n");
+                    // ScrUtils::printf("Checking Splatfest info...\n");
                     // FsUtils::RemoveDirRecursive(FestUtils::g_TempPath);
-                    ScrUtils::printf("Installation done! Remove the sfdltemp path on your SD card when the fest is over.");
-                    sleep(3);
+                    ScrUtils::printf("Installation done!");
                     SYSLaunchMenu();
     }
 }

@@ -12,12 +12,10 @@
 #ifdef WIIU
 #include <whb/file.h>
 #include <whb/sdcard.h>
-// #include <iosuhax.h>
 #include <coreinit/mcp.h>
 #include "VirtualPathUtils.hpp"
 #include <iosfwd>
 #include <fstream>
-// #include <mxml.h>
 #endif
 
 namespace FsUtils
@@ -41,10 +39,7 @@ namespace FsUtils
 
 
     /* WiiU functions */
-
-    // bool IsExploitedIOSU(); // Check if the IOSU exploit has been applied
-    // bool OpenIOSU();        // Open FileSystem Access
-    // bool CloseIOSU();       // Close FileSystem Access
+    
     bool IsMLCMounted();    // Check if the MLC is mounted
     bool IsUSBMounted();    // Check if the USB is mounted
 
