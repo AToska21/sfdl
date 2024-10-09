@@ -39,7 +39,7 @@ CXXFLAGS	:= $(CFLAGS)
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-g $(ARCH) $(RPXSPECS) #--entry=_start -Wl,-Map,$(notdir $*.map)
 
-LIBS	:=	-lcurl -lmbedtls -lmbedcrypto -lmbedx509 -lwut -lz -lmocha
+LIBS	:=	-lcurl -lmbedtls -lmbedcrypto -lmbedx509 -lwut -lz -lmocha -lmxml
 
 #-------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level
