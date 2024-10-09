@@ -12,6 +12,13 @@
 // Global variables
 constexpr int g_AppVersion = 1;
 
+
+void exitloop()
+{
+    SYSLaunchMenu();
+}
+
+
 void mainloop()
 {
     // ScrUtils::printf("[DEBUG] Running main loop.");
@@ -94,13 +101,7 @@ void mainloop()
                     ScrUtils::printf("Installation done!");
                     SYSLaunchMenu();
                     exitloop();
-                    break;
     }
-}
-
-void exitloop()
-{
-    SYSLaunchMenu();
 }
 
 int main() {
