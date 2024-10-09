@@ -93,10 +93,15 @@ void mainloop()
                     // FsUtils::RemoveDirRecursive(FestUtils::g_TempPath);
                     ScrUtils::printf("Installation done!");
                     SYSLaunchMenu();
+                    exitloop();
                     break;
     }
 }
 
+void exitloop()
+{
+    SYSLaunchMenu();
+}
 
 int main() {
     WHBProcInit();
