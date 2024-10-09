@@ -18,7 +18,7 @@
 #define URL_SFDL_APPMETA         URL_BASE "app/SFDL/meta.xml"
 
 // Splatfest Modloader
-#define URL_SFML_APPEXEC         URL_BASE "app/SFML/sfml"
+#define URL_SFML_APPEXEC         URL_BASE "SFML.wuhb"
 #define URL_SFML_APPICON         URL_BASE "app/SFML/icon.png"
 #define URL_SFML_APPMETA         URL_BASE "app/SFML/meta.xml"
 

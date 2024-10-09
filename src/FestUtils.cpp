@@ -13,7 +13,7 @@ uint32_t GetLowBytes(uint64_t titleID) {
     
 namespace FestUtils
 {
-    const char* g_TempPath = "sfdltemp/";
+    const char* g_TempPath = "deletemeafterfest/";
 
     enum Version : uint8_t
     {

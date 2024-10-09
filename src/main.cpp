@@ -10,31 +10,26 @@
 #include <whb/proc.h>
 #include <whb/log_console.h>
 // Global variables
-constexpr int g_AppVersion = 2;
+constexpr int g_AppVersion = 1;
 
 void mainloop()
 {
     // ScrUtils::printf("[DEBUG] Running main loop.");
     while (WHBProcIsRunning()) {
                     ScrUtils::printf("\n");
-                    sleep(4);
-                    // Your application logic goes here
                     ScrUtils::printf("~~ SplatfestDL v%d ~~\n", g_AppVersion);
-                    ScrUtils::printf("special thanks to scraps for testing, love you <3\n");
-                    ScrUtils::printf("sheldon for providing this code\n");
-                    ScrUtils::printf("DISCLAIMER: It will appear as if\n");
-                    ScrUtils::printf("the script runs twice. This is due to\n");
-                    ScrUtils::printf("Aroma limitations. Sorry.\n");
+                    ScrUtils::printf("Special Thanks to scraps for testing, love you <3\n");
+                    ScrUtils::printf("and Sheldon for providing this code.\n");
                     ScrUtils::printf("Starting in 3 seconds.\n");
                     sleep(3);
 
                     // Check if under maintenance
-                    // if (Utilities::CheckMaintenance())
-                    // {
-                    //      ScrUtils::printf("Under Maintenance.\n");
-                    //      sleep(10);
-                    //      OSFatal("Servers under maintenance. System halted. Manually reboot your Wii U.");
-                    // }
+                    if (Utilities::CheckMaintenance())
+                    {
+                        ScrUtils::printf("Under Maintenance.\n");
+                        sleep(10);
+                        break;
+                    }
 
                     // Check for updates
                     int latestVersion = Utilities::GetLatestVersionNum();
@@ -47,7 +42,7 @@ void mainloop()
                     }
                     else
                     {
-                        ScrUtils::printf("You are using the latest version\n");
+                        ScrUtils::printf("You are using the latest version!\n");
                     }
 
                     // Prompt for update download
@@ -98,6 +93,7 @@ void mainloop()
                     // FsUtils::RemoveDirRecursive(FestUtils::g_TempPath);
                     ScrUtils::printf("Installation done!");
                     SYSLaunchMenu();
+                    break;
     }
 }
 
