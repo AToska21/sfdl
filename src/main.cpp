@@ -107,6 +107,7 @@ int main() {
         OSFatal("[SFDL] Failed to init Mocha! Please contact the developers on Discord!");
     }
     mainloop();
+    SYSLaunchMenu();
     Mocha_DeInitLibrary();
     WHBLogConsoleFree();
     WHBProcShutdown();
