@@ -10,7 +10,7 @@
 #define SFDL_FILE "https://cdn.abmanagement.al/"
 
 #define URL_MAINTENANCE     MAINTENANCE_BASE ".txt"
-#define URL_VERSION         URL_BASE "v"
+#define URL_VERSION         SFDL_FILE "vSFDL.txt"
 
 // Splatfest Downloader
 #define URL_SFDL_APPRPX          SFDL_FILE "SFDL.wuhb"

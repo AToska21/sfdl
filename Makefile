@@ -39,13 +39,13 @@ CXXFLAGS	:= $(CFLAGS)
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-g $(ARCH) $(RPXSPECS) #--entry=_start -Wl,-Map,$(notdir $*.map)
 
-LIBS	:=	-lcurl -lmbedtls -lmbedcrypto -lmbedx509 -lwut -lz -lmocha -lmxml
+LIBS	:=	-lcurl -lmbedtls -lmbedcrypto -lmbedx509 -lwut -lz -lmocha -lmxml -lrpxloader
 
 #-------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level
 # containing include and lib
 #-------------------------------------------------------------------------------
-LIBDIRS	:= $(PORTLIBS) $(WUT_ROOT) $(WUT_ROOT)/usr $(DEVKITPRO)/libogc/ogc
+LIBDIRS	:= $(PORTLIBS) $(WUT_ROOT) $(WUT_ROOT)/usr $(DEVKITPRO)/libogc/ogc $(WUMS_ROOT)
 
 
 #-------------------------------------------------------------------------------

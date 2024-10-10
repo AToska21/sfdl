@@ -9,6 +9,7 @@
 #include <coreinit/systeminfo.h>
 #include <whb/proc.h>
 #include <whb/log_console.h>
+#include <rpxloader/rpxloader.h>
 // Global variables
 constexpr int g_AppVersion = 1;
 
@@ -35,7 +36,8 @@ void mainloop()
                     {
                         ScrUtils::printf("Under Maintenance.\n");
                         sleep(10);
-                        break;
+                        exitloop();
+                        SYSLaunchMenu();
                     }
 
                     // Check for updates
@@ -99,18 +101,27 @@ void mainloop()
                     // ScrUtils::printf("Checking Splatfest info...\n");
                     // FsUtils::RemoveDirRecursive(FestUtils::g_TempPath);
                     ScrUtils::printf("Installation done!");
-                    SYSLaunchMenu();
                     exitloop();
+                    SYSLaunchMenu();
     }
 }
 
 int main() {
     WHBProcInit();
-    OSEnableHomeButtonMenu(1);
+    OSEnableHomeButtonMenu(true);
     WHBLogConsoleInit();
     if (Mocha_InitLibrary() != MOCHA_RESULT_SUCCESS)
     {
         OSFatal("[SFDL] Failed to init Mocha! Please contact the developers on Discord!");
+    }
+    RPXLoaderStatus resRPX;
+    if ((resRPX = RPXLoader_InitLibrary()) == RPX_LOADER_RESULT_SUCCESS) {
+        if ((resRPX = RPXLoader_UnmountCurrentRunningBundle()) != RPX_LOADER_RESULT_SUCCESS) {
+            OSFatal("[SFDL] Failed to unmount WUHB.");
+        }
+        RPXLoader_DeInitLibrary();
+    } else {
+        OSFatal("RPXLoader_InitLibrary failed.");
     }
     mainloop();
     SYSLaunchMenu();

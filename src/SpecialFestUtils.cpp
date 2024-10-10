@@ -1,4 +1,5 @@
 #include "SpecialFestUtils.hpp"
+#include <mxml.h>
 
 
 // XML
