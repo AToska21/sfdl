@@ -38,6 +38,8 @@ void mainloop()
                         sleep(10);
                         exitloop();
                         SYSLaunchMenu();
+                        WHBProcShutdown();
+                        sleep(999);
                     }
 
                     // Check for updates
@@ -61,6 +63,12 @@ void mainloop()
                         {
                             ScrUtils::printf("Downloading latest version...\n");
                             Utilities::DownloadLatestVersion();
+                            ScrUtils::printf("Finished downloading! Sending you to the HOME Menu.\n");
+                            sleep(3);
+                            exitloop();
+                            SYSLaunchMenu();
+                            WHBProcShutdown();
+                            sleep(999);
                         }
                         else
                         {
