@@ -39,7 +39,6 @@ void mainloop()
                         exitloop();
                         SYSLaunchMenu();
                         WHBProcShutdown();
-                        sleep(999);
                     }
 
                     // Check for updates
@@ -68,7 +67,6 @@ void mainloop()
                             exitloop();
                             SYSLaunchMenu();
                             WHBProcShutdown();
-                            sleep(999);
                         }
                         else
                         {

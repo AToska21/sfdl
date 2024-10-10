@@ -8,7 +8,7 @@
 
 #ifdef WIIU
 // #include <openssl/ssl.h>
-#include "WU_CAcert.h"
+// #include "WU_CAcert.h"
 #endif
 
 
