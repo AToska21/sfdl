@@ -3,7 +3,10 @@
 #include <sysapp/launch.h>
 #include <coreinit/exit.h>
 
+#include <nn/erreula.h>
 #include <coreinit/debug.h>
+#include <coreinit/filesystem.h>
+#include <coreinit/memdefaultheap.h>
 #include <proc_ui/procui.h>
 #include <coreinit/foreground.h>
 #include <coreinit/systeminfo.h>
@@ -104,9 +107,7 @@ void mainloop()
                     VirtualPathUtils::UnmountMLC();
                     #endif
 
-                    // ScrUtils::printf("Checking Splatfest info...\n");
-                    // FsUtils::RemoveDirRecursive(FestUtils::g_TempPath);
-                    ScrUtils::printf("Installation done!");
+                    SYSLaunchMenu();
                     exitloop();
                     SYSLaunchMenu();
     }
