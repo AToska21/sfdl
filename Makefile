@@ -10,6 +10,8 @@ TOPDIR ?= $(CURDIR)
 
 include $(DEVKITPRO)/wut/share/wut_rules
 
+WUMS_ROOT := $(DEVKITPRO)/wums
+
 #-------------------------------------------------------------------------------
 # TARGET is the name of the output
 # BUILD is the directory where object files & intermediate files will be placed
