@@ -9,14 +9,12 @@
 #include <zlib.h>
 #include "ScrUtils.hpp"
 
-#ifdef WIIU
 #include <whb/file.h>
 #include <whb/sdcard.h>
 #include <coreinit/mcp.h>
 #include "VirtualPathUtils.hpp"
 #include <iosfwd>
 #include <fstream>
-#endif
 
 namespace FsUtils
 {

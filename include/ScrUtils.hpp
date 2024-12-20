@@ -4,13 +4,9 @@
 #include <unistd.h>
 #include <stdio.h>
 
-#ifdef WIIU
 #include <whb/log.h>
 #include <whb/log_console.h>
 #include <vpad/input.h>
-#else
-#include <iostream>
-#endif
 
 namespace ScrUtils
 {
