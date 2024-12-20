@@ -82,7 +82,8 @@ int main_thread()
                     }
                     else
                     {
-                        OSFatal("Failed to create temporary folder on the SD card!\n Is your SD Card locked?");
+                        ScrUtils::printf("Failed to create temporary folder on the SD card!\n");
+                        ScrUtils::printf("(Is your SD card locked?)\n");
                     }
 
                     #ifdef WIIU

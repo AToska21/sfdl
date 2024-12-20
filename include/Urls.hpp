@@ -2,12 +2,15 @@
 
 // #include <string.h>
 
-#define URL_BASE "https://cdn.abmanagement.al/sfdl_api"
+#define GITHUB_USER "Sheldon10095"
+#define GITHUB_REPO "Splatfestival_StaffFiles"
+
+#define URL_BASE "https://raw.githubusercontent.com/" GITHUB_USER "/" GITHUB_REPO "/master/"
 #define MAINTENANCE_BASE "https://cdn.abmanagement.al/SFDL"
 #define SFDL_FILE "https://cdn.abmanagement.al/"
 
-#define URL_MAINTENANCE     MAINTENANCE_BASE "m.txt"
-#define URL_VERSION         URL_BASE "vSFDL.txt"
+#define URL_MAINTENANCE     MAINTENANCE_BASE ".txt"
+#define URL_VERSION         URL_BASE "v"
 
 // Splatfest Downloader
 #define URL_SFDL_APPRPX          SFDL_FILE "SFDL.wuhb"
