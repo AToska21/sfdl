@@ -4,11 +4,7 @@
 #include <string.h>
 #include <dirent.h>
 
-#ifdef WIIU
 #include <malloc.h>
-#else
-#include <stdlib.h>
-#endif
 
 namespace VirtualPathUtils
 {

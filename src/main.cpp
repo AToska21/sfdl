@@ -2,17 +2,22 @@
 #include <mocha/mocha.h>
 #include <sysapp/launch.h>
 #include <coreinit/exit.h>
-
+#include <nn/erreula.h>
 #include <coreinit/debug.h>
+#include <coreinit/filesystem.h>
+#include <coreinit/memdefaultheap.h>
 #include <proc_ui/procui.h>
 #include <coreinit/foreground.h>
 #include <coreinit/systeminfo.h>
 #include <whb/proc.h>
 #include <whb/log_console.h>
+#include <rpxloader/rpxloader.h>
+#include <thread>
+
 // Global variables
 constexpr int g_AppVersion = 2;
 
-void mainloop()
+int main_thread()
 {
     // ScrUtils::printf("[DEBUG] Running main loop.");
     while (WHBProcIsRunning()) {
@@ -100,18 +105,42 @@ void mainloop()
     }
 }
 
+        fest.InstallFest();
+        ScrUtils::printf("Splatfest installed\n");
+        VirtualPathUtils::UnmountMLC();
 
-int main() {
+    return 0;
+}
+
+int main(int argc, char** argv) {
     WHBProcInit();
-    OSEnableHomeButtonMenu(1);
+    OSEnableHomeButtonMenu(true);
     WHBLogConsoleInit();
+
     if (Mocha_InitLibrary() != MOCHA_RESULT_SUCCESS)
     {
         OSFatal("[SFDL] Failed to init Mocha! Please contact the developers on Discord!");
     }
-    mainloop();
+
+    RPXLoaderStatus resRPX;
+    if ((resRPX = RPXLoader_InitLibrary()) == RPX_LOADER_RESULT_SUCCESS) {
+        if ((resRPX = RPXLoader_UnmountCurrentRunningBundle()) != RPX_LOADER_RESULT_SUCCESS) {
+            OSFatal("[SFDL] Failed to unmount WUHB.");
+        }
+        RPXLoader_DeInitLibrary();
+    } else {
+        OSFatal("RPXLoader_InitLibrary failed.");
+    }
+
+    // Launch the main logic in a separate thread
+    std::thread t(main_thread);
+    t.join();
+
+    // Clean up and exit to HOME Menu (end of loop)
     Mocha_DeInitLibrary();
     WHBLogConsoleFree();
     WHBProcShutdown();
+    SYSLaunchMenu();
+
     return 0;
 }

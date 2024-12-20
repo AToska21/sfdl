@@ -1,10 +1,8 @@
 #pragma once
 
-#ifdef WIIU
 #include <sysapp/title.h>
 #include <whb/log_console.h>
 #include <whb/log.h>
-#endif
 #include "FsUtils.hpp"
 
 namespace FestUtils

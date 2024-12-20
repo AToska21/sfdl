@@ -1,5 +1,4 @@
 #pragma once
-#ifdef WIIU
 // static const char cacertpem[] =
 static const char g_WU_CAcertPem[] = 
 	"GlobalSign Root CA\n"
@@ -3448,4 +3447,3 @@ static const char g_WU_CAcertPem[] =
 "+TaU33fD6Q3AOfF5u0aOq0NZJ7cguyPpVkAh7DE9ZapD8j3fcEThuk0mEDuYn/PIjhs4ViFqUZPT\n"
 "kcpG2om3PVODLAgfi49T3f+sHw==\n"
 "-----END CERTIFICATE-----\n";
-#endif
