@@ -28,11 +28,14 @@ void mainloop()
     // ScrUtils::printf("[DEBUG] Running main loop.");
     while (WHBProcIsRunning()) {
                     ScrUtils::printf("\n");
+                    ScrUtils::printf("Ho ho ho, Merry Squidmas everyone!");
+                    ScrUtils::printf("Here's to another 100 years of Splatfestival!");
                     ScrUtils::printf("~~ SplatfestDL v%d ~~\n", g_AppVersion);
                     ScrUtils::printf("Special Thanks to scraps for testing, love you <3\n");
                     ScrUtils::printf("and Sheldon for providing this code.\n");
-                    ScrUtils::printf("Starting in 3 seconds.\n");
-                    sleep(3);
+                    ScrUtils::printf("Please note, due to recent Inkay changes, the program will run itself twice.");
+                    ScrUtils::printf("Starting in 10 seconds.\n");
+                    sleep(10);
 
                     // Check if under maintenance
                     if (Utilities::CheckMaintenance())
@@ -94,7 +97,6 @@ void mainloop()
                         ScrUtils::printf("(Is your SD card locked?)\n");
                     }
 
-                    #ifdef WIIU
                     VirtualPathUtils::MountMLC();
                     FestUtils::FestInstaller fest;
                     ScrUtils::printf("Found: %s%s%s\n", 
@@ -105,11 +107,11 @@ void mainloop()
                     fest.InstallFest();
                     ScrUtils::printf("Splatfest installed\n");
                     VirtualPathUtils::UnmountMLC();
-                    #endif
 
                     SYSLaunchMenu();
                     exitloop();
                     SYSLaunchMenu();
+                    return 0;
     }
 }
 

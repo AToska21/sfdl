@@ -40,7 +40,6 @@ namespace FestUtils
 
     void FestInstaller::FindInstalledVersions()
     {
-        #ifdef WIIU
         WHBLogPrintf("Finding installed versions...");
         m_InstalledGameVersions = 0;
         if (IsFoundUSA()) {
@@ -56,43 +55,24 @@ namespace FestUtils
             WHBLogPrintf("JPN version found.");
         }
         WHBLogPrintf("Installed game versions detected: %d", m_InstalledGameVersions);
-        #else
-        m_InstalledGameVersions =  Version_USA | Version_EUR | Version_JPN;
-        WHBLogPrintf("Defaulting to all regions available in non-Wii U environment.");
-        #endif
     }
 
     bool FestInstaller::IsFoundUSA()
     {
-        #ifdef WIIU
         WHBLogPrintf("Checking for USA version...");
         return SYSCheckTitleExists(TitleID_USA);
-        #else
-        WHBLogPrintf("USA version assumed found (non-Wii U environment).");
-        return true;
-        #endif
     }
 
     bool FestInstaller::IsFoundEUR()
     {
-        #ifdef WIIU
         WHBLogPrintf("Checking for EUR version...");
         return SYSCheckTitleExists(TitleID_EUR);
-        #else
-        WHBLogPrintf("EUR version assumed found (non-Wii U environment).");
-        return true;
-        #endif
     }
 
     bool FestInstaller::IsFoundJPN()
     {
-        #ifdef WIIU
         WHBLogPrintf("Checking for JPN version...");
         return SYSCheckTitleExists(TitleID_JPN);
-        #else
-        WHBLogPrintf("JPN version assumed found (non-Wii U environment).");
-        return true;
-        #endif
     }
 
 

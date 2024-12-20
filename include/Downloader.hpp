@@ -6,11 +6,6 @@
 #include <curl/curl.h>
 #include <ScrUtils.hpp>
 
-#ifdef WIIU
-// #include <openssl/ssl.h>
-// #include "WU_CAcert.h"
-#endif
-
 
 namespace Tools
 {

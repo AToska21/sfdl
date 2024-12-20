@@ -1,6 +1,5 @@
 #include <iostream>
 
-#ifdef WIIU
 #include <wut.h>
 #include <whb/log.h>
 #include <whb/log_console.h>
@@ -13,7 +12,6 @@
 #include <proc_ui/procui.h>
 #include <coreinit/foreground.h>
 #include <coreinit/systeminfo.h>
-#endif
 
 #include "Downloader.hpp"
 #include "FestUtils.hpp"

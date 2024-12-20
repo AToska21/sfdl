@@ -78,11 +78,7 @@ namespace Tools
 {
     Downloader::Downloader()
     {
-        #ifdef WIIU
         m_maxStringSize = 2 * 1024; // 2 KB
-        #else
-        m_maxStringSize = 8 * 1024; // 8 KB
-        #endif
     }
 
     Downloader::~Downloader()
@@ -127,12 +123,6 @@ namespace Tools
         curl_easy_setopt(curl, CURLOPT_VERBOSE, 0L);
         curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
 
-        // Wii U SSL stuff
-        #ifdef WIIU
-        // curl_easy_setopt(curl, CURLOPT_SSLCERTTYPE, "PEM");
-        // curl_easy_setopt(curl, CURLOPT_SSL_CTX_FUNCTION, CurlTools::WiiU::sslctx_function);
-        #endif
-
         // Perform curl
         res = curl_easy_perform(curl);
         if (res != CURLE_OK)
@@ -176,11 +166,7 @@ namespace Tools
         curl_easy_setopt(curl, CURLOPT_MAXFILESIZE, m_maxStringSize);
 
         // Wii U SSL stuff
-        #ifdef WIIU
-        // curl_easy_setopt(curl, CURLOPT_SSLCERTTYPE, "PEM");
-        // curl_easy_setopt(curl, CURLOPT_SSL_CTX_FUNCTION, CurlTools::WiiU::sslctx_function);
         curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
-        #endif
 
         // Perform curl
         res = curl_easy_perform(curl);
