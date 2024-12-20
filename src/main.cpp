@@ -19,57 +19,57 @@ constexpr int g_AppVersion = 2;
 
 int main_thread()
 {
-    // Equivalent of mainloop logic, now in a separate thread
-        ScrUtils::printf("\n");
-        ScrUtils::printf("Ho ho ho, Merry Squidmas everyone!");
-        ScrUtils::printf("Here's to another 100 years of Splatfestival!");
-        ScrUtils::printf("~~ SplatfestDL v%d ~~\n", g_AppVersion);
-        ScrUtils::printf("Special Thanks to scraps for testing, love you <3\n");
-        ScrUtils::printf("and Sheldon for providing this code.\n");
-        ScrUtils::printf("Please note, due to recent Inkay changes, the program will run itself twice.");
-        ScrUtils::printf("Starting in 10 seconds.\n");
-        sleep(10);
+    // ScrUtils::printf("[DEBUG] Running main loop.");
+    while (WHBProcIsRunning()) {
+                    ScrUtils::printf("\n");
+                    sleep(4);
+                    // Your application logic goes here
+                    ScrUtils::printf("~~ SplatfestDL v%d ~~\n", g_AppVersion);
+                    ScrUtils::printf("special thanks to scraps for testing, love you <3\n");
+                    ScrUtils::printf("sheldon for providing this code\n");
+                    ScrUtils::printf("DISCLAIMER: It will appear as if\n");
+                    ScrUtils::printf("the script runs twice. This is due to\n");
+                    ScrUtils::printf("Aroma limitations. Sorry.\n");
+                    ScrUtils::printf("Starting in 3 seconds.\n");
+                    sleep(3);
 
-        // Check if under maintenance
-        // if (Utilities::CheckMaintenance())
-        // {
-        //     ScrUtils::printf("Under Maintenance.\n");
-        //     sleep(10);
-        //     break;
-        // }
+                    // Check if under maintenance
+                    // if (Utilities::CheckMaintenance())
+                    // {
+                    //      ScrUtils::printf("Under Maintenance.\n");
+                    //      sleep(10);
+                    //      OSFatal("Servers under maintenance. System halted. Manually reboot your Wii U.");
+                    // }
 
-        // Check for updates
-        // int latestVersion = Utilities::GetLatestVersionNum();
-        // if (g_AppVersion != latestVersion)
-        // {
-        //     if (g_AppVersion < latestVersion)
-        //         ScrUtils::printf("New version available!\n");
-        //     else
-        //         ScrUtils::printf("You may be using a pre-release version.\n");
-        // }
-        // else
-        // {
-        //     ScrUtils::printf("You are using the latest version!\n");
-        // }
+                    // Check for updates
+                    int latestVersion = Utilities::GetLatestVersionNum();
+                    if (g_AppVersion != latestVersion)
+                    {
+                        if (g_AppVersion < latestVersion)
+                            ScrUtils::printf("New version available!\n");
+                        else
+                            ScrUtils::printf("You may be using a pre-release version.\n");
+                    }
+                    else
+                    {
+                        ScrUtils::printf("You are using the latest version\n");
+                    }
 
-        // // Prompt for update download
-        // if (g_AppVersion < latestVersion)
-        // {
-        //     if (ScrUtils::AskForYesNo("Do you want to download the latest version?"))
-        //     {
-        //         ScrUtils::printf("Downloading latest version...\n");
-        //         Utilities::DownloadLatestVersion();
-        //         ScrUtils::printf("Finished downloading! Sending you to the HOME Menu.\n");
-        //         sleep(3);
-        //         break;
-        //     }
-        //     else
-        //     {
-        //         ScrUtils::printf("Continuing without downloading the latest version.\n");
-        //     }
-        // }
+                    // Prompt for update download
+                    if (g_AppVersion < latestVersion)
+                    {
+                        if (ScrUtils::AskForYesNo("Do you want to download the latest version?"))
+                        {
+                            ScrUtils::printf("Downloading latest version...\n");
+                            Utilities::DownloadLatestVersion();
+                        }
+                        else
+                        {
+                            ScrUtils::printf("Continuing without downloading the latest version.\n");
+                        }
+                    }
 
-        ScrUtils::printf("\n");
+                    ScrUtils::printf("\n");
 
                     Tools::Downloader d;
                     std::string tempDir = FestUtils::g_TempPath;
@@ -85,12 +85,25 @@ int main_thread()
                         OSFatal("Failed to create temporary folder on the SD card!\n Is your SD Card locked?");
                     }
 
-        VirtualPathUtils::MountMLC();
-        FestUtils::FestInstaller fest;
-        ScrUtils::printf("Found: %s%s%s\n", 
-            fest.IsFoundUSA() ? "USA " : "",
-            fest.IsFoundEUR() ? "EUR " : "",
-            fest.IsFoundJPN() ? "JPN " : "");
+                    #ifdef WIIU
+                    VirtualPathUtils::MountMLC();
+                    FestUtils::FestInstaller fest;
+                    ScrUtils::printf("Found: %s%s%s\n", 
+                        fest.IsFoundUSA() ? "USA " : "",
+                        fest.IsFoundEUR() ? "EUR " : "",
+                        fest.IsFoundJPN() ? "JPN " : "");
+
+                    fest.InstallFest();
+                    ScrUtils::printf("Splatfest installed\n");
+                    VirtualPathUtils::UnmountMLC();
+                    #endif
+
+                    // ScrUtils::printf("Checking Splatfest info...\n");
+                    // FsUtils::RemoveDirRecursive(FestUtils::g_TempPath);
+                    ScrUtils::printf("Installation done!");
+                    SYSLaunchMenu();
+    }
+}
 
         fest.InstallFest();
         ScrUtils::printf("Splatfest installed\n");
