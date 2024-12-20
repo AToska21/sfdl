@@ -14,12 +14,13 @@
 #include <whb/log_console.h>
 #include <rpxloader/rpxloader.h>
 // Global variables
-constexpr int g_AppVersion = 1;
+constexpr int g_AppVersion = 2;
 
 
-void exitloop()
+int exitloop()
 {
     SYSLaunchMenu();
+    return 0;
 }
 
 
@@ -110,8 +111,6 @@ void mainloop()
 
                     SYSLaunchMenu();
                     exitloop();
-                    SYSLaunchMenu();
-                    return 0;
     }
 }
 
